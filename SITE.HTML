@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UBS BORACEA - Sistema de Escala</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: #0a0a0a;
+color: #e0e0e0;
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #1a1a2e; }
+::-webkit-scrollbar-thumb { background: #00ff41; border-radius: 3px; }
+
+.container {
+max-width: 1400px;
+margin: 0 auto;
+padding: 20px;
+}
+
+/* ========== SPLASH ========== */
+.splash {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+min-height: 90vh;
+text-align: center;
+}
+
+.splash h1 {
+font-size: 5rem;
+font-weight: 900;
+color: #39ff14;
+text-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14, 0 0 80px #39ff14;
+letter-spacing: 8px;
+margin-bottom: 30px;
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0% { text-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14; }
+50% { text-shadow: 0 0 30px #39ff14, 0 0 60px #39ff14, 0 0 100px #39ff14; }
+100% { text-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14; }
+}
+
+/* ========== BUTTONS ========== */
+.btn, .btn-big, .btn-sm, .btn-admin {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+border: none;
+cursor: pointer;
+font-weight: 600;
+border-radius: 50px;
+transition: all 0.3s;
+text-decoration: none;
+}
+
+.btn {
+padding: 14px 36px;
+font-size: 1.1rem;
+background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+color: #fff;
+box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+}
+
+.btn:hover {
+box-shadow: 0 6px 25px rgba(108, 92, 231, 0.6);
+transform: translateY(-2px);
+}
+
+.btn-green {
+background: linear-gradient(135deg, #00b894, #00cec9);
+box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
+}
+
+.btn-green:hover {
+box-shadow: 0 6px 25px rgba(0, 184, 148, 0.6);
+}
+
+.btn-red {
+background: linear-gradient(135deg, #e17055, #d63031);
+box-shadow: 0 4px 15px rgba(214, 48, 49, 0.4);
+}
+
+.btn-red:hover {
+box-shadow: 0 6px 25px rgba(214, 48, 49, 0.6);
+}
+
+.btn-warning {
+background: linear-gradient(135deg, #fdcb6e, #f39c12);
+color: #2d3436;
+box-shadow: 0 4px 15px rgba(253, 203, 110, 0.4);
+}
+
+.btn-warning:hover {
+box-shadow: 0 6px 25px rgba(253, 203, 110, 0.6);
+}
+
+.btn-big {
+padding: 18px 44px;
+font-size: 1.3rem;
+background: rgba(255,255,255,0.05);
+color: #e0e0e0;
+border: 1px solid rgba(255,255,255,0.1);
+width: 100%;
+max-width: 360px;
+}
+
+.btn-big:hover {
+background: rgba(57, 255, 20, 0.1);
+border-color: #39ff14;
+transform: translateY(-2px);
+}
+
+.btn-sm {
+padding: 8px 16px;
+font-size: 0.85rem;
+background: rgba(255,255,255,0.08);
+color: #e0e0e0;
+border: 1px solid rgba(255,255,255,0.15);
+}
+
+.btn-sm:hover {
+background: rgba(57, 255, 20, 0.15);
+border-color: #39ff14;
+}
+
+.btn-admin {
+padding: 12px 28px;
+font-size: 1rem;
+background: rgba(255,255,255,0.05);
+color: #e0e0e0;
+border: 1px solid rgba(255,255,255,0.12);
+width: 100%;
+text-align: left;
+justify-content: flex-start;
+}
+
+.btn-admin:hover {
+background: rgba(57, 255, 20, 0.08);
+border-color: #39ff14;
+transform: translateX(4px);
+}
+
+/* ========== CARDS ========== */
+.card {
+background: rgba(255,255,255,0.03);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 20px;
+padding: 30px;
+margin-bottom: 30px;
+box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+transition: all 0.3s;
+}
+
+.card:hover {
+border-color: rgba(57, 255, 20, 0.2);
+}
+
+.card h2 {
+color: #39ff14;
+margin-bottom: 24px;
+font-size: 1.6rem;
+}
+
+/* Seções admin */
+.admin-section {
+background: rgba(255,255,255,0.02);
+border: 1px solid rgba(255,255,255,0.06);
+border-radius: 16px;
+padding: 24px;
+margin-bottom: 20px;
+transition: all 0.3s;
+}
+
+.admin-section:hover {
+border-color: rgba(57, 255, 20, 0.15);
+}
+
+.admin-section h3 {
+color: #39ff14;
+margin-bottom: 16px;
+font-size: 1.15rem;
+border-bottom: 1px solid rgba(57, 255, 20, 0.15);
+padding-bottom: 10px;
+}
+
+/* ========== FORM ========== */
+.form-group {
+margin-bottom: 16px;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 6px;
+color: #b2bec3;
+font-size: 0.9rem;
+font-weight: 500;
+}
+
+input, select, textarea {
+width: 100%;
+padding: 10px 14px;
+background: rgba(0,0,0,0.4);
+border: 1px solid rgba(255,255,255,0.12);
+border-radius: 10px;
+color: #fff;
+font-size: 0.9rem;
+transition: all 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+outline: none;
+border-color: #39ff14;
+box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.1);
+}
+
+textarea {
+resize: vertical;
+min-height: 80px;
+}
+
+select option {
+background: #1a1a2e;
+color: #fff;
+}
+
+.input-group {
+display: flex;
+gap: 8px;
+margin-bottom: 12px;
+flex-wrap: wrap;
+}
+
+.input-group input, .input-group select {
+flex: 1;
+min-width: 120px;
+}
+
+/* ========== LISTS ========== */
+ul {
+list-style: none;
+}
+
+ul li {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px 14px;
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(255,255,255,0.06);
+border-radius: 10px;
+margin-bottom: 6px;
+transition: all 0.2s;
+}
+
+ul li:hover {
+background: rgba(255,255,255,0.06);
+}
+
+.btn-remove {
+background: #d63031;
+border: none;
+color: #fff;
+width: 30px;
+height: 30px;
+border-radius: 50%;
+cursor: pointer;
+font-size: 1rem;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.2s;
+}
+
+.btn-remove:hover {
+background: #e74c3c;
+transform: scale(1.1);
+}
+
+/* ========== ESCALA GRID ========== */
+.escala-wrapper {
+overflow-x: auto;
+border-radius: 12px;
+border: 1px solid rgba(255,255,255,0.08);
+}
+
+.escala-grid {
+width: 100%;
+border-collapse: collapse;
+font-size: 0.78rem;
+}
+
+.escala-grid th {
+background: rgba(57, 255, 20, 0.08);
+color: #39ff14;
+padding: 8px 4px;
+border: 1px solid rgba(255,255,255,0.06);
+font-weight: 600;
+white-space: nowrap;
+text-align: center;
+}
+
+.escala-grid td {
+border: 1px solid rgba(255,255,255,0.04);
+height: 38px;
+min-width: 36px;
+position: relative;
+}
+
+.escala-grid .colab-name {
+background: rgba(57, 255, 20, 0.04);
+color: #39ff14;
+font-weight: 600;
+padding: 4px 10px;
+text-align: left;
+cursor: pointer;
+white-space: nowrap;
+min-width: 120px;
+border: 1px solid rgba(57, 255, 20, 0.1);
+transition: all 0.2s;
+}
+
+.escala-grid .colab-name:hover {
+background: rgba(57, 255, 20, 0.12);
+}
+
+.slot-block {
+  width: 100%;
+  height: 100%;
+  min-height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-weight: 600;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  user-select: none;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  position: relative;
+}
+
+.slot-block::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent, rgba(255,255,255,0.05), transparent);
+  animation: rotateGlow 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotateGlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.slot-block:hover {
+  transform: perspective(400px) rotateX(2deg) translateY(-4px) scale(1.06);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 255, 255, 0.1);
+}
+.slot-block {
+  animation: pulseVibrant 3s ease-in-out infinite;
+}
+
+@keyframes pulseVibrant {
+  0%, 100% { box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+  50% { box-shadow: 0 4px 25px rgba(0,0,0,0.35), 0 0 10px rgba(255,255,255,0.1); }
+}
+
+.slot-block:active {
+  transform: scale(0.95);
+}
+
+.slot-block.dragging {
+opacity: 0.5;
+}
+
+/* ========== ADMIN LAYOUT ========== */
+.admin-panel-layout {
+display: flex;
+gap: 30px;
+align-items: flex-start;
+}
+
+.admin-sidebar {
+flex: 0 0 260px;
+display: flex;
+flex-direction: column;
+gap: 8px;
+position: sticky;
+top: 20px;
+}
+
+.admin-content {
+flex: 1;
+min-width: 0;
+}
+
+@media (max-width: 900px) {
+.admin-panel-layout {
+flex-direction: column;
+}
+.admin-sidebar {
+flex: none;
+width: 100%;
+position: static;
+}
+}
+
+/* ========== COLLAB CARD ========== */
+.collab-card {
+background: rgba(0,0,0,0.6);
+border-radius: 20px;
+padding: 32px;
+max-width: 420px;
+margin: 0 auto;
+border: 1px solid rgba(57, 255, 20, 0.2);
+}
+
+.collab-card p {
+margin-bottom: 12px;
+font-size: 1.05rem;
+}
+
+.collab-card strong {
+color: #39ff14;
+}
+
+/* ========== MODAL ========== */
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.85);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 9999;
+animation: fadeIn 0.2s;
+}
+
+.modal-overlay.hidden {
+display: none;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+@keyframes slideUp {
+from { transform: translateY(30px); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+
+.modal {
+background: #1a1a2e;
+border-radius: 20px;
+padding: 32px;
+max-width: 480px;
+width: 90%;
+max-height: 85vh;
+overflow-y: auto;
+border: 1px solid rgba(57, 255, 20, 0.15);
+box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+animation: slideUp 0.25s;
+}
+
+.modal h3 {
+color: #39ff14;
+margin-bottom: 20px;
+font-size: 1.3rem;
+}
+
+.modal label {
+display: block;
+color: #b2bec3;
+font-size: 0.85rem;
+margin-bottom: 4px;
+margin-top: 14px;
+}
+
+.modal select, .modal input, .modal p {
+margin-bottom: 8px;
+}
+
+.modal-buttons {
+display: flex;
+gap: 12px;
+margin-top: 24px;
+flex-wrap: wrap;
+}
+
+.btn-modal {
+flex: 1;
+padding: 12px 20px;
+border: none;
+border-radius: 10px;
+font-weight: 600;
+cursor: pointer;
+font-size: 0.95rem;
+transition: all 0.3s;
+min-width: 100px;
+}
+
+.btn-modal.confirm {
+background: linear-gradient(135deg, #00b894, #00cec9);
+color: #fff;
+}
+
+.btn-modal.confirm:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
+}
+
+.btn-modal.cancel {
+background: rgba(255,255,255,0.08);
+color: #e0e0e0;
+}
+
+.btn-modal.cancel:hover {
+background: rgba(255,255,255,0.15);
+}
+
+.btn-modal.danger {
+background: linear-gradient(135deg, #e17055, #d63031);
+color: #fff;
+}
+
+.btn-modal.danger:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 15px rgba(214, 48, 49, 0.4);
+}
+
+/* ========== TOAST ========== */
+.toast-container {
+position: fixed;
+top: 20px;
+right: 20px;
+z-index: 99999;
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.toast {
+background: rgba(0,0,0,0.9);
+border: 1px solid rgba(57, 255, 20, 0.3);
+border-radius: 12px;
+padding: 14px 20px;
+color: #fff;
+font-size: 0.9rem;
+animation: slideIn 0.3s, fadeOut 0.3s 2.7s;
+box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+max-width: 360px;
+}
+
+.toast.error {
+border-color: rgba(214, 48, 49, 0.5);
+}
+
+.toast.warning {
+border-color: rgba(243, 156, 18, 0.5);
+}
+
+@keyframes slideIn {
+from { transform: translateX(100%); opacity: 0; }
+to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+from { opacity: 1; }
+to { opacity: 0; }
+}
+
+/* ========== FOLGA ITEM ========== */
+.folga-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px 16px;
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(255,255,255,0.06);
+border-radius: 10px;
+margin-bottom: 6px;
+}
+
+.folga-item .nome {
+color: #39ff14;
+font-weight: 600;
+}
+
+.folga-item .data {
+color: #b2bec3;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+.splash h1 { font-size: 2.8rem; letter-spacing: 4px; }
+.btn { padding: 12px 24px; font-size: 1rem; }
+.btn-big { padding: 14px 28px; font-size: 1.1rem; }
+.container { padding: 12px; }
+.card { padding: 20px; }
+.escala-grid { font-size: 0.7rem; }
+.escala-grid th { padding: 4px 2px; }
+.escala-grid td { min-width: 28px; }
+.modal { padding: 24px; }
+}
+
+/* ========== UTILS ========== */
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.gap-10 { gap: 10px; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-col { display: flex; flex-direction: column; }
+</style>
+</head>
+<body>
+
+<div class="container" id="app">
+<!-- SPLASH SCREEN -->
+<div id="splashScreen" class="splash">
+<h1>UBS BORACEA</h1>
+<div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+<button class="btn btn-green" onclick="showScreen('mainScreen')" style="font-size:1.2rem;padding:16px 44px;">ÁREA DO ADM</button>
+<button class="btn btn-warning" onclick="showScreen('adminLoginScreen')" style="position:fixed;bottom:30px;right:30px;z-index:100;">ADMIN</button>
+</div>
+</div>
+
+<!-- MAIN SCREEN -->
+<div id="mainScreen" class="hidden">
+<div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:40px 0;">
+<h2 style="color:#39ff14;margin-bottom:20px;">UBS BORACEA</h2>
+<button class="btn-big" onclick="showScreen('colabScreen')"> 🕧 B.H  🏖️ Férias 😎 Folga </button>
+<button class="btn-big" onclick="showScreen('escalaFullScreen')">📋 Escala de Trabalho</button>
+<button class="btn-big" onclick="showScreen('folgasScreen')">📅 Folgas Equipe</button>
+<button class="btn" onclick="showScreen('splashScreen')" style="margin-top:30px;">⬅️ Voltar</button>
+</div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="adminLoginScreen" class="hidden">
+<div class="card" style="max-width:380px;margin:60px auto;">
+<h2 style="text-align:center;">🔐 ADMIN</h2>
+<div class="form-group">
+<label>Email</label>
+<input type="email" id="adminEmail" value="admin@ubs.com">
+</div>
+<div class="form-group">
+<label>Senha</label>
+<input type="password" id="adminPassword" value="123">
+</div>
+<button class="btn btn-green" onclick="adminLogin()" style="width:100%;">Entrar</button>
+<button class="btn btn-warning" onclick="showScreen('splashScreen')" style="width:100%;margin-top:10px;">⬅️ Voltar</button>
+</div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanelScreen" class="hidden">
+<h2 style="color:#39ff14;text-align:center;margin-bottom:30px;">⚙️ Painel Administrativo</h2>
+<div class="admin-panel-layout">
+<div class="admin-sidebar" id="adminSidebar">
+<button class="btn-admin" onclick="showAdminContent('gerencial')">📊 Visão Gerencial</button>
+<button class="btn-admin" onclick="showAdminContent('colaboradores')">👤 Adicionar Colaborador</button>
+<button class="btn-admin" onclick="showAdminContent('bancoHoras')">⏱️ Banco de Horas</button>
+<button class="btn-admin" onclick="showAdminContent('ferias')">🏖️ Intenção de Férias</button>
+<button class="btn-admin" onclick="showAdminContent('folgasAdmin')">📅 Escala de Folga</button>
+<button class="btn-admin" onclick="showAdminContent('atividades')">📋 Gerenciar Atividades</button>
+<button class="btn-admin" onclick="showAdminContent('avisos')">📢 Enviar Avisos</button>
+<button class="btn-admin" onclick="showAdminContent('historico')">📜 Histórico de Notificações</button>
+<button class="btn-admin" onclick="showAdminContent('escalaEditavel')">📊 Escala (Editável)</button>
+<button class="btn-admin btn-red" onclick="logout()" style="margin-top:16px;text-align:center;justify-content:center;">⬅️ Sair</button>
+</div>
+<div class="admin-content" id="adminContentArea">
+<!-- Conteúdo dinâmico carregado via JS -->
+</div>
+</div>
+</div>
+
+<!-- COLAB SELECT SCREEN -->
+<div id="colabScreen" class="hidden">
+<h2 style="color:#39ff14;text-align:center;margin-bottom:24px;">👤 Selecione um Colaborador</h2>
+<div id="colaboradorLista" style="display:flex;flex-direction:column;align-items:center;gap:10px;max-width:400px;margin:0 auto;"></div>
+<button class="btn" onclick="showScreen('mainScreen')" style="display:block;margin:30px auto 0;">⬅️ Voltar</button>
+</div>
+
+<!-- ESCALA FULL -->
+<div id="escalaFullScreen" class="hidden">
+<h2 style="color:#39ff14;text-align:center;margin-bottom:20px;">📋 Escala Completa</h2>
+<div id="escalaGridContainer"></div>
+<button class="btn" onclick="showScreen('mainScreen')" style="display:block;margin:20px auto 0;">⬅️ Voltar</button>
+</div>
+
+<!-- FOLGAS SCREEN -->
+<div id="folgasScreen" class="hidden">
+<h2 style="color:#39ff14;text-align:center;margin-bottom:20px;">📅 Folgas</h2>
+<div id="folgasLista" style="max-width:500px;margin:0 auto;"></div>
+<button class="btn" onclick="showScreen('mainScreen')" style="display:block;margin:20px auto 0;">⬅️ Voltar</button>
+</div>
+</div>
+
+<!-- MODAL OVERLAY -->
+<div id="modalOverlay" class="modal-overlay hidden" onclick="closeModal(null)">
+<div class="modal" onclick="event.stopPropagation()" id="modalContent"></div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ============================================================
+// FIREBASE CONFIG
+// ============================================================
+const firebaseConfig = {
+apiKey: "AIzaSyANyiUBWtmsz91Olb2cZM8p8X55_SJ0mWE",
+authDomain: "app-escala-feab8.firebaseapp.com",
+projectId: "app-escala-feab8",
+storageBucket: "app-escala-feab8.firebasestorage.app",
+messagingSenderId: "342835043960",
+appId: "1:342835043960:web:adc1edfa4da096cbc9578d"
+};
+
+let app, auth, db;
+let firebaseAvailable = false;
+try {
+if (typeof firebase !== 'undefined') {
+app = firebase.initializeApp(firebaseConfig);
+auth = firebase.auth();
+db = firebase.firestore();
+firebaseAvailable = true;
+console.log('Firebase conectado');
+}
+} catch (e) {
+console.warn('Firebase indisponível, usando localStorage');
+}
+
+let currentUser = null;
+
+// ============================================================
+// CONSTANTS
+// ============================================================
+const ATIVIDADES_PADRAO = [
+'Almoço', 'Recepção', 'Administrativo/SAME', 'Administrativo/Arktec',
+'Administrativo/Organização', 'Administrativo/Apoio', 'Totem', 'Regulação',
+'Apoio', 'Vacina', 'Férias', 'Atestado', 'Produção', 'Mãe Paulistana',
+'Patrimônio', 'Agenda', 'Folga', 'Reunião'
+];
+
+const CORES_ATIVIDADES = {
+'Almoço': '#e67e22',
+'Recepção': '#3498db',
+'Administrativo/SAME': '#9b59b6',
+'Administrativo/Arktec': '#96ceb4',
+'Administrativo/Organização': '#ffeaa7',
+'Administrativo/Apoio': '#dfe6e9',
+'Totem': '#a29bfe',
+'Regulação': '#fd79a8',
+'Apoio': '#00cec9',
+'Vacina': '#e17055',
+'Férias': '#6c5ce7',
+'Atestado': '#d63031',
+'Produção': '#00b894',
+'Mãe Paulistana': '#fdcb6e',
+'Patrimônio': '#e84393',
+'Agenda': '#74b9ff',
+'Folga': '#636e72',
+'Reunião': '#f39c12'
+};
+
+const HORARIOS = [];
+for (let h = 6; h <= 19; h++) {
+    for (let m = 0; m < 60; m += 30) {
+        if (h === 6 && m === 0) continue;
+        if (h === 19 && m > 0) break;
+        const hh = String(h).padStart(2, '0');
+        const mm = String(m).padStart(2, '0');
+        HORARIOS.push(hh + ':' + mm);
+    }
+}
+
+const COLABORADORES_PADRAO = [
+'Ana Oliveira', 'Bruno Santos', 'Carla Mendes', 'Daniel Souza',
+'Eliane Costa', 'Fernando Lima', 'Gabriela Torres', 'Henrique Alves',
+'Isabela Rocha', 'Jorge Batista', 'Karina Dias', 'Leonardo Campos'
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let state = {
+colaboradores: [...COLABORADORES_PADRAO],
+atividades: [...ATIVIDADES_PADRAO],
+bancoHoras: {},
+ferias: {},
+folgas: {},
+escala: {},
+notificacoes: [],
+atividadesCor: { ...CORES_ATIVIDADES }
+};
+
+// ============================================================
+// HELPERS
+// ============================================================
+function getColor(atv) { return state.atividadesCor[atv] || '#636e72'; }
+function horaToIndex(h) { return HORARIOS.indexOf(h); }
+function indexToHora(i) { return HORARIOS[i] || ''; }
+function getColabList() { return state.colaboradores; }
+function getAtivList() { return state.atividades; }
+function colabExiste(nome) { return state.colaboradores.includes(nome); }
+function getBanco(nome) { return state.bancoHoras[nome] || 0; }
+function getFerias(nome) { return state.ferias[nome] || ''; }
+function getFolgas(nome) { return state.folgas[nome] || []; }
+
+function formatHora(h) {
+return h.padStart(5, '0');
+}
+
+// ============================================================
+// NAVEGAÇÃO
+// ============================================================
+function showScreen(id) {
+document.querySelectorAll('#app > div').forEach(d => d.classList.add('hidden'));
+const el = document.getElementById(id);
+if (el) el.classList.remove('hidden');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+if (id === 'escalaFullScreen') renderEscala('escalaGridContainer', false);
+if (id === 'colabScreen') renderColaboradorList();
+if (id === 'folgasScreen') renderFolgasList();
+}
+
+function showAdminContent(section) {
+const area = document.getElementById('adminContentArea');
+let html = '';
+switch(section) {
+case 'gerencial': html = renderVisaoGerencial(); break;
+case 'colaboradores': html = renderAdminColaboradores(); break;
+case 'bancoHoras': html = renderAdminBancoHoras(); break;
+case 'ferias': html = renderAdminFerias(); break;
+case 'folgasAdmin': html = renderAdminFolgas(); break;
+case 'atividades': html = renderAdminAtividades(); break;
+case 'avisos': html = renderAdminAvisos(); break;
+case 'historico': html = renderAdminHistorico(); break;
+case 'escalaEditavel': html = renderAdminEscalaEditavel(); break;
+}
+area.innerHTML = html;
+renderEscala('adminEscalaContainer', true);
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// ADMIN LOGIN
+// ============================================================
+async function adminLogin() {
+const email = document.getElementById('adminEmail').value.trim();
+const password = document.getElementById('adminPassword').value.trim();
+if (!email || !password) { showToast('Preencha email e senha', 'error'); return; }
+
+try {
+if (firebaseAvailable && auth) {
+const cred = await auth.signInWithEmailAndPassword(email, password);
+const uid = cred.user.uid;
+const adminDoc = await db.collection('admins').doc(uid).get();
+if (!adminDoc.exists || !adminDoc.data().ativo) {
+showToast('Acesso negado: administrador não ativo', 'error');
+auth.signOut();
+return;
+}
+currentUser = uid;
+} else {
+// Fallback: admin fixo
+if (email === 'admin@ubs.com' && password === '123') {
+currentUser = email;
+} else {
+showToast('Credenciais inválidas! Use admin@ubs.com / 123', 'error');
+return;
+}
+}
+showToast('Login bem-sucedido!');
+showScreen('adminPanelScreen');
+showAdminContent('gerencial');
+} catch (e) {
+console.error('Erro login:', e);
+// Fallback se Firebase falhar
+if (email === 'admin@ubs.com' && password === '123') {
+currentUser = email;
+showToast('Modo local: login sem Firebase');
+showScreen('adminPanelScreen');
+showAdminContent('gerencial');
+} else {
+showToast('Erro: ' + (e.message || 'Credenciais inválidas'), 'error');
+}
+}
+}
+
+function logout() {
+currentUser = null;
+if (firebaseAvailable && auth) auth.signOut();
+showScreen('splashScreen');
+showToast('Sessão encerrada');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg, type = '') {
+const container = document.getElementById('toastContainer');
+const toast = document.createElement('div');
+toast.className = 'toast' + (type ? ' ' + type : '');
+toast.textContent = msg;
+container.appendChild(toast);
+setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3000);
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+let modalResolve = null;
+
+function showModal(html) {
+return new Promise((resolve) => {
+modalResolve = resolve;
+const overlay = document.getElementById('modalOverlay');
+const content = document.getElementById('modalContent');
+content.innerHTML = html;
+overlay.classList.remove('hidden');
+});
+}
+
+function closeModal(result) {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.add('hidden');
+  if (modalResolve) {
+    const r = modalResolve;
+    modalResolve = null;
+    r(result);
+  }
+  // ✅ LINHA CORRIGIDA: setTimeout pra limpar DEPOIS da microtask
+  setTimeout(() => {
+    document.getElementById('modalContent').innerHTML = '';
+  }, 0);
+}
+
+// ============================================================
+// FIREBASE CRUD
+// ============================================================
+
+async function loadFromFirestore() {
+try {
+if (firebaseAvailable && db) {
+const doc = await db.collection('ubs_escala').doc('dados').get();
+if (doc.exists) {
+const data = doc.data();
+// 🔥 FIX: Verifica se o state está dentro de data.state (formato novo)
+// ou diretamente em data (formato antigo)
+if (data && data.state) {
+const rawState = typeof data.state === 'string' ? JSON.parse(data.state) : data.state;
+// Mescla preservando o que já existe
+for (let key in rawState) {
+state[key] = rawState[key];
+}
+} else if (data && data.colaboradores) {
+// Formato antigo (salvo diretamente)
+for (let key in data) {
+state[key] = data[key];
+}
+}
+if (!state.atividadesCor) state.atividadesCor = { ...CORES_ATIVIDADES };
+return;
+}
+}
+} catch(e) { console.warn('Firebase load error:', e); }
+const stored = localStorage.getItem('ubsEscalaData');
+if (stored) {
+try {
+const parsed = JSON.parse(stored);
+for (let key in parsed) {
+state[key] = parsed[key];
+}
+if (!state.atividadesCor) state.atividadesCor = { ...CORES_ATIVIDADES };
+return;
+} catch(e) {}
+}
+loadExemploData();
+}
+
+function loadExemploData() {
+// Exemplo de escala
+const exemplos = [
+{nome: 'Ana Oliveira', banco: 120, ferias: 'Julho', folgas: ['2026-06-10'],
+blocos: [{atividade: 'Almoço', inicio: '06:30', fim: '10:00'}, {atividade: 'Recepção', inicio: '10:00', fim: '12:30'}]},
+{nome: 'Bruno Santos', banco: -30, ferias: '', folgas: [],
+blocos: [{atividade: 'Administrativo/SAME', inicio: '06:30', fim: '09:30'}]},
+{nome: 'Carla Mendes', banco: 200, ferias: 'Agosto', folgas: ['2026-07-05', '2026-07-06'],
+blocos: [{atividade: 'Almoço', inicio: '06:30', fim: '08:00'}, {atividade: 'Vacina', inicio: '08:00', fim: '10:30'}]},
+{nome: 'Daniel Souza', banco: 0, ferias: '', folgas: [],
+blocos: [{atividade: 'Totem', inicio: '06:30', fim: '07:30'}, {atividade: 'Apoio', inicio: '07:30', fim: '10:00'}]},
+{nome: 'Eliane Costa', banco: 60, ferias: 'Setembro', folgas: [],
+blocos: [{atividade: 'Almoço', inicio: '06:30', fim: '09:00'}]},
+{nome: 'Fernando Lima', banco: 90, ferias: '', folgas: ['2026-08-15'],
+blocos: [{atividade: 'Regulação', inicio: '09:00', fim: '11:30'}]},
+{nome: 'Gabriela Torres', banco: -15, ferias: 'Outubro', folgas: [],
+blocos: [{atividade: 'Administrativo/Arktec', inicio: '06:30', fim: '08:30'}]},
+{nome: 'Henrique Alves', banco: 150, ferias: '', folgas: [],
+blocos: [{atividade: 'Produção', inicio: '09:30', fim: '11:30'}]},
+{nome: 'Isabela Rocha', banco: 30, ferias: 'Novembro', folgas: [],
+blocos: [{atividade: 'Almoço', inicio: '06:30', fim: '08:00'}, {atividade: 'Mãe Paulistana', inicio: '11:30', fim: '14:00'}]},
+{nome: 'Jorge Batista', banco: -50, ferias: '', folgas: [],
+blocos: [{atividade: 'Administrativo/Organização', inicio: '06:30', fim: '10:30'}]},
+{nome: 'Karina Dias', banco: 80, ferias: 'Dezembro', folgas: ['2026-09-20'],
+blocos: [{atividade: 'Administrativo/Apoio', inicio: '10:30', fim: '14:00'}]},
+{nome: 'Leonardo Campos', banco: 0, ferias: '', folgas: [],
+blocos: [{atividade: 'Agenda', inicio: '08:00', fim: '10:30'}]}
+];
+
+for (let ex of exemplos) {
+state.escala[ex.nome] = ex.blocos;
+state.bancoHoras[ex.nome] = ex.banco;
+state.ferias[ex.nome] = ex.ferias;
+state.folgas[ex.nome] = ex.folgas;
+}
+saveToFirestore('ubs_escala', 'dados', { state: JSON.stringify(state) });
+}
+
+// ============================================================
+// DRAG AND DROP
+// ============================================================
+function initDragDrop(container) {
+let dragData = null;
+let clone = null;
+let isDragging = false;
+let startX, startY;
+
+container.querySelectorAll('.slot-block').forEach(el => {
+el.addEventListener('mousedown', function(e) {
+if (!this.closest('#adminEscalaSection') && !this.closest('#adminContentArea')) return;
+e.preventDefault();
+dragData = {
+nome: this.dataset.nome,
+inicio: this.dataset.inicio,
+fim: this.dataset.fim,
+atividade: this.dataset.atividade
+};
+startX = e.clientX;
+startY = e.clientY;
+isDragging = false;
+
+const onMove = (me) => {
+if (!isDragging && (Math.abs(me.clientX - startX) > 5 || Math.abs(me.clientY - startY) > 5)) {
+isDragging = true;
+clone = this.cloneNode(true);
+clone.style.position = 'fixed';
+clone.style.width = this.offsetWidth + 'px';
+clone.style.height = this.offsetHeight + 'px';
+clone.style.pointerEvents = 'none';
+clone.style.zIndex = '99999';
+clone.style.opacity = '0.8';
+clone.style.left = (me.clientX - this.offsetWidth/2) + 'px';
+clone.style.top = (me.clientY - this.offsetHeight/2) + 'px';
+document.body.appendChild(clone);
+this.style.opacity = '0.3';
+}
+if (clone) {
+clone.style.left = (me.clientX - clone.offsetWidth/2) + 'px';
+clone.style.top = (me.clientY - clone.offsetHeight/2) + 'px';
+}
+};
+
+const onUp = (me) => {
+document.removeEventListener('mousemove', onMove);
+document.removeEventListener('mouseup', onUp);
+if (isDragging && dragData) {
+if (clone) clone.remove();
+this.style.opacity = '1';
+const target = document.elementFromPoint(me.clientX, me.clientY);
+if (target) {
+const td = target.closest('td[data-slot]');
+if (td) {
+const nome = td.dataset.nome;
+const slotIdx = parseInt(td.dataset.slot);
+const novoInicio = indexToHora(slotIdx);
+if (novoInicio && nome) {
+moveBlock(dragData.nome, dragData.atividade, dragData.inicio, dragData.fim, novoInicio);
+}
+}
+}
+} else if (!isDragging) {
+// Clique (não drag)
+this.click();
+}
+dragData = null;
+clone = null;
+isDragging = false;
+};
+
+document.addEventListener('mousemove', onMove);
+document.addEventListener('mouseup', onUp);
+});
+});
+}
+
+// ============================================================
+// RENDER ESCALA
+// ============================================================
+function renderEscala(containerId, editable = false) {
+const container = document.getElementById(containerId);
+if (!container) return;
+const colabs = getColabList();
+let html = '<div class="escala-wrapper"><table class="escala-grid"><thead><tr><th>Nome</th>';
+for (let h of HORARIOS) {
+html += '<th>' + h + '</th>';
+}
+html += '</tr></thead><tbody>';
+
+for (let nome of colabs) {
+html += '<tr><td class="colab-name" data-nome="' + nome + '">' + nome + '</td>';
+const blocos = state.escala[nome] || [];
+const slotMap = {};
+for (let i = 0; i < HORARIOS.length; i++) slotMap[i] = null;
+for (let b of blocos) {
+const ini = horaToIndex(b.inicio);
+const fim = horaToIndex(b.fim);
+if (ini === -1 || fim === -1) continue;
+for (let i = ini; i < fim && i < HORARIOS.length; i++) {
+slotMap[i] = b;
+}
+}
+let i = 0;
+while (i < HORARIOS.length) {
+const b = slotMap[i];
+if (b) {
+let count = 0;
+for (let j = i; j < HORARIOS.length; j++) {
+if (slotMap[j] === b) count++;
+else break;
+}
+const cor = getColor(b.atividade);
+const label = b.atividade;
+const attr = 'data-nome="' + nome + '" data-inicio="' + b.inicio + '" data-fim="' + b.fim + '" data-atividade="' + b.atividade + '"';
+html += '<td colspan="' + count + '" style="padding:0;"><div class="slot-block" style="background:' + cor + ';" ' + attr + '>' + label + '</div></td>';
+i += count;
+} else {
+html += '<td data-slot="' + i + '" data-nome="' + nome + '" style="background:transparent;cursor:pointer;"></td>';
+i++;
+}
+}
+html += '</tr>';
+}
+html += '</tbody></table></div>';
+container.innerHTML = html;
+
+// Eventos
+container.querySelectorAll('.slot-block').forEach(el => {
+el.addEventListener('click', function(e) {
+e.stopPropagation();
+if (!editable) return;
+const nome = this.dataset.nome;
+const atv = this.dataset.atividade;
+const inicio = this.dataset.inicio;
+const fim = this.dataset.fim;
+openEditBlockModal(nome, atv, inicio, fim);
+});
+});
+
+container.querySelectorAll('td[data-slot]').forEach(el => {
+el.addEventListener('click', function() {
+if (!editable) return;
+const nome = this.dataset.nome;
+const slotIdx = parseInt(this.dataset.slot);
+const horaInicio = indexToHora(slotIdx);
+if (horaInicio) openAddBlockModal(nome, horaInicio, slotIdx);
+});
+});
+
+if (editable) initDragDrop(container);
+}
+
+// ============================================================
+// MOVE BLOCK
+// ============================================================
+function moveBlock(nome, atividade, inicioAntigo, fimAntigo, novoInicio) {
+const blocos = state.escala[nome] || [];
+const idx = blocos.findIndex(b => b.atividade === atividade && b.inicio === inicioAntigo && b.fim === fimAntigo);
+if (idx === -1) return;
+
+const duracao = horaToIndex(fimAntigo) - horaToIndex(inicioAntigo);
+const novoFimIndex = horaToIndex(novoInicio) + duracao;
+if (novoFimIndex > HORARIOS.length) {
+showToast('Horário inválido: ultrapassa o limite do dia', 'error');
+return;
+}
+const novoFim = indexToHora(novoFimIndex);
+if (!novoFim) {
+showToast('Horário inválido', 'error');
+return;
+}
+
+// Verifica conflito
+const conflito = blocos.some((b, i) => {
+if (i === idx) return false;
+const bIni = horaToIndex(b.inicio);
+const bFim = horaToIndex(b.fim);
+const nIni = horaToIndex(novoInicio);
+const nFim = novoFimIndex;
+return (nIni < bFim && nFim > bIni);
+});
+if (conflito) {
+showToast('Conflito com outro bloco do colaborador', 'error');
+return;
+}
+
+blocos[idx].inicio = novoInicio;
+blocos[idx].fim = novoFim;
+state.escala[nome] = blocos;
+saveToFirestore();
+renderAllEscalas();
+showToast('Bloco movido!');
+}
+
+// ============================================================
+// MODAIS
+// ============================================================
+function openAddBlockModal(nome, horaInicio, slotIndex) {
+const ativList = getAtivList();
+let options = ativList.map(a => '<option value="' + a + '">' + a + '</option>').join('');
+const fimMax = Math.min(slotIndex + 25, HORARIOS.length);
+let horaFimOptions = '';
+for (let i = slotIndex + 1; i < fimMax; i++) {
+horaFimOptions += '<option value="' + HORARIOS[i] + '">' + HORARIOS[i] + '</option>';
+}
+const html = '<h3>➕ Adicionar Bloco</h3><label>Colaborador</label><p style="color:#00ff41;font-weight:600;margin-bottom:12px;">' + nome + '</p><label>Atividade</label><select id="modalAddAtiv">' + options + '</select><label>Início</label><p style="color:#fff;">' + horaInicio + '</p><label>Término</label><select id="modalAddFim">' + horaFimOptions + '</select><div class="modal-buttons"><button class="btn-modal cancel" onclick="closeModal(null)">Cancelar</button><button class="btn-modal confirm" id="modalAddConfirm">Adicionar</button></div>';
+showModal(html).then(result => {
+if (result) {
+const atv = document.getElementById('modalAddAtiv').value;
+const fim = document.getElementById('modalAddFim').value;
+if (!atv || !fim) return;
+if (!state.escala[nome]) state.escala[nome] = [];
+state.escala[nome].push({ atividade: atv, inicio: horaInicio, fim: fim });
+saveToFirestore();
+renderAllEscalas();
+showToast('Bloco adicionado!');
+}
+});
+// Bind confirm após modal abrir
+setTimeout(() => {
+const btn = document.getElementById('modalAddConfirm');
+if (btn) btn.onclick = () => closeModal(true);
+}, 50);
+}
+
+function openEditBlockModal(nome, atividade, inicio, fim) {
+const ativList = getAtivList();
+let options = ativList.map(a => '<option value="' + a + '"' + (a === atividade ? ' selected' : '') + '>' + a + '</option>').join('');
+const html = '<h3>✏️ Editar Bloco</h3><label>Colaborador</label><p style="color:#00ff41;font-weight:600;margin-bottom:12px;">' + nome + '</p><label>Atividade</label><select id="modalEditAtiv">' + options + '</select><p style="color:#666;font-size:0.85rem;margin-top:6px;">' + inicio + ' — ' + fim + '</p><div class="modal-buttons"><button class="btn-modal cancel" onclick="closeModal(null)">Cancelar</button><button class="btn-modal danger" id="modalDeleteBtn">🗑️ Deletar</button><button class="btn-modal confirm" id="modalEditConfirm">💾 Salvar</button></div>';
+showModal(html).then(result => {
+if (result === 'delete') {
+deleteBlock(nome, atividade, inicio, fim);
+} else if (result === 'save') {
+const novaAtv = document.getElementById('modalEditAtiv').value;
+editBlockActivity(nome, atividade, inicio, fim, novaAtv);
+}
+});
+setTimeout(() => {
+const saveBtn = document.getElementById('modalEditConfirm');
+if (saveBtn) saveBtn.onclick = () => closeModal('save');
+const delBtn = document.getElementById('modalDeleteBtn');
+if (delBtn) delBtn.onclick = () => closeModal('delete');
+}, 50);
+}
+
+function editBlockActivity(nome, atividade, inicio, fim, novaAtividade) {
+const blocos = state.escala[nome] || [];
+const b = blocos.find(bl => bl.atividade === atividade && bl.inicio === inicio && bl.fim === fim);
+if (b) {
+b.atividade = novaAtividade;
+saveToFirestore();
+renderAllEscalas();
+showToast('Atividade atualizada!');
+}
+}
+
+function deleteBlock(nome, atividade, inicio, fim) {
+if (!confirm('Excluir este bloco?')) return;
+const blocos = state.escala[nome] || [];
+state.escala[nome] = blocos.filter(b => !(b.atividade === atividade && b.inicio === inicio && b.fim === fim));
+saveToFirestore();
+renderAllEscalas();
+showToast('Bloco removido!');
+}
+
+// ============================================================
+// CARD COLABORADOR
+// ============================================================
+function openColabCard(nome) {
+if (!colabExiste(nome)) { showToast('Colaborador não encontrado', 'error'); return; }
+const banco = getBanco(nome);
+const ferias = getFerias(nome) || 'Não definido';
+const folgas = getFolgas(nome);
+const folgasStr = folgas.length ? folgas.join(', ') : 'Nenhuma';
+const html = '<div class="collab-card"><h3 style="color:#00ff41;margin-bottom:16px;">' + nome + '</h3><p><strong>💰 Banco de Horas:</strong> ' + banco + 'h</p><p><strong>🏖️ Intenção de Férias:</strong> ' + ferias + '</p><p><strong>📅 Folgas:</strong> ' + folgasStr + '</p><div class="modal-buttons" style="margin-top:20px;"><button class="btn-modal confirm" onclick="closeModal(null)">OK</button></div></div>';
+showModal(html);
+}
+
+// ============================================================
+// RENDER ALL
+// ============================================================
+function renderAllEscalas() {
+renderEscala('escalaGridContainer', false);
+const adminEscala = document.getElementById('adminEscalaSection');
+if (adminEscala && !adminEscala.classList.contains('hidden')) {
+renderEscala('adminEscalaSection', true);
+}
+renderFolgasList();
+renderColaboradorList();
+renderAdminLists();
+}
+
+function renderFolgasList() {
+const container = document.getElementById('folgasLista');
+if (!container) return;
+let html = '';
+for (let nome of getColabList()) {
+for (let data of getFolgas(nome)) {
+html += '<div class="folga-item"><span class="nome">' + nome + '</span><span class="data">' + data + '</span></div>';
+}
+}
+if (!html) html = '<p style="text-align:center;color:#666;">Nenhuma folga registrada</p>';
+container.innerHTML = html;
+}
+
+function renderColaboradorList() {
+const container = document.getElementById('colaboradorLista');
+if (!container) return;
+let html = '';
+for (let nome of getColabList()) {
+html += '<button class="btn-big" style="font-size:1.1rem;padding:16px;" data-nome="' + nome + '">' + nome + '</button>';
+}
+container.innerHTML = html;
+container.querySelectorAll('.btn-big').forEach(el => {
+el.addEventListener('click', function() {
+openColabCard(this.dataset.nome);
+});
+});
+}
+
+function renderAdminLists() {
+// Colaboradores
+const listaColab = document.getElementById('listaColaboradoresAdmin');
+if (listaColab) {
+let html = '';
+for (let nome of getColabList()) {
+html += '<li><span>' + nome + '</span><button class="btn-remove" data-nome="' + nome + '">✕</button></li>';
+}
+listaColab.innerHTML = html;
+listaColab.querySelectorAll('.btn-remove').forEach(el => {
+el.addEventListener('click', function() {
+removeColaborador(this.dataset.nome);
+});
+});
+}
+// Atividades
+const listaAtiv = document.getElementById('listaAtividadesAdmin');
+if (listaAtiv) {
+let html = '';
+for (let a of getAtivList()) {
+html += '<li><span>' + a + '</span><button class="btn-remove" data-ativ="' + a + '">✕</button></li>';
+}
+listaAtiv.innerHTML = html;
+listaAtiv.querySelectorAll('.btn-remove').forEach(el => {
+el.addEventListener('click', function() {
+removeAtividade(this.dataset.ativ);
+});
+});
+}
+// Folgas admin list
+const listaFolgas = document.getElementById('listaFolgasAdmin');
+if (listaFolgas) {
+let html = '';
+for (let nome of getColabList()) {
+for (let data of getFolgas(nome)) {
+html += '<li><span>' + nome + ' — ' + data + '</span></li>';
+}
+}
+if (!html) html = '<li style="color:#666;">Nenhuma folga</li>';
+listaFolgas.innerHTML = html;
+}
+populateSelects();
+}
+
+function populateSelects() {
+const colabs = getColabList();
+['selectBancoColab', 'selectFeriasColab', 'selectFolgaColab'].forEach(id => {
+const sel = document.getElementById(id);
+if (sel) {
+sel.innerHTML = colabs.map(n => '<option value="' + n + '">' + n + '</option>').join('');
+}
+});
+}
+
+// ============================================================
+// ADMIN SECTIONS
+// ============================================================
+function renderVisaoGerencial() {
+let html = '<div class="admin-section"><h3>📊 Visão Gerencial</h3><div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.85rem;"><thead><tr style="background:#0a0a0a;color:#00ff41;"><th style="padding:10px;border:1px solid #2a2a4e;text-align:left;">Nome</th><th style="padding:10px;border:1px solid #2a2a4e;">Banco de Horas</th><th style="padding:10px;border:1px solid #2a2a4e;">Mês de Férias</th><th style="padding:10px;border:1px solid #2a2a4e;">Datas de Folga</th><th style="padding:10px;border:1px solid #2a2a4e;">Ações</th></tr></thead><tbody>';
+for (let nome of getColabList()) {
+const banco = getBanco(nome);
+const ferias = getFerias(nome);
+const folgas = getFolgas(nome);
+let folgasHtml = folgas.map(d => '<span style="display:inline-block;background:rgba(57,255,20,0.1);color:#39ff14;padding:2px 8px;border-radius:4px;margin:2px;font-size:0.8rem;">' + d + '</span>').join('');
+if (!folgasHtml) folgasHtml = '<span style="color:#666;">—</span>';
+html += '<tr><td style="padding:8px;border:1px solid #2a2a4e;color:#39ff14;font-weight:600;">' + nome + '</td>';
+html += '<td style="padding:4px;border:1px solid #2a2a4e;"><div class="input-group" style="margin:0;flex-wrap:nowrap;"><input type="number" id="bh_' + nome + '" value="' + banco + '" style="width:80px;padding:6px;font-size:0.85rem;"><button class="btn-sm" onclick="updateBancoHoras(\'' + nome + '\', document.getElementById(\'bh_' + nome + '\').value)" style="padding:6px 12px;">Salvar</button></div></td>';
+html += '<td style="padding:4px;border:1px solid #2a2a4e;"><div class="input-group" style="margin:0;flex-wrap:nowrap;"><select id="ferias_' + nome + '" style="padding:6px;font-size:0.85rem;width:100px;"><option value="">—</option>';
+for (let m of ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']) {
+html += '<option value="' + m + '"' + (ferias === m ? ' selected' : '') + '>' + m + '</option>';
+}
+html += '</select><button class="btn-sm" onclick="updateFerias(\'' + nome + '\', document.getElementById(\'ferias_' + nome + '\').value)" style="padding:6px 12px;">Salvar</button></div></td>';
+html += '<td style="padding:4px;border:1px solid #2a2a4e;"><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px;">';
+for (let d of folgas) {
+html += '<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(57,255,20,0.1);color:#39ff14;padding:2px 8px;border-radius:4px;font-size:0.8rem;">' + d + '<button onclick="removeFolgaAdmin(\'' + nome + '\',\'' + d + '\')" style="background:none;border:none;color:#d63031;cursor:pointer;font-size:0.9rem;padding:0;">✕</button></span>';
+}
+html += '</div><div class="input-group" style="margin:0;flex-wrap:nowrap;"><input type="date" id="folgaDate_' + nome + '" style="padding:6px;font-size:0.85rem;width:130px;"><button class="btn-sm" onclick="addFolgaAdmin(\'' + nome + '\')" style="padding:6px 12px;">+ Data</button></div></td>';
+html += '<td style="padding:4px;border:1px solid #2a2a4e;text-align:center;"><button class="btn-sm" style="background:#d63031;color:#fff;border:none;padding:6px 12px;" onclick="removeColaborador(\'' + nome + '\')">Excluir</button></td>';
+html += '</tr>';
+}
+html += '</tbody></table></div></div>';
+return html;
+}
+
+function renderAdminColaboradores() {
+return '<div class="admin-section"><h3>👤 Adicionar Colaborador</h3><div class="input-group"><input type="text" id="inputNovoColab" placeholder="Nome do colaborador" style="flex:1;"><button class="btn-sm" onclick="addColaborador()">Adicionar</button></div><ul id="listaColaboradoresAdmin"></ul></div>';
+}
+
+function renderAdminBancoHoras() {
+return '<div class="admin-section"><h3>⏱️ Banco de Horas</h3><div class="input-group"><select id="selectBancoColab"></select><input type="number" id="inputBancoSaldo" placeholder="Saldo (horas)"><button class="btn-sm" onclick="updateBancoHoras(document.getElementById(\'selectBancoColab\').value, document.getElementById(\'inputBancoSaldo\').value)">Atualizar</button></div></div>';
+}
+
+function renderAdminFerias() {
+let meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+let options = '<option value="">Selecione</option>' + meses.map(m => '<option value="' + m + '">' + m + '</option>').join('');
+return '<div class="admin-section"><h3>🏖️ Intenção de Férias</h3><div class="input-group"><select id="selectFeriasColab"></select><select id="selectFeriasMes">' + options + '</select><button class="btn-sm" onclick="updateFerias(document.getElementById(\'selectFeriasColab\').value, document.getElementById(\'selectFeriasMes\').value)">Atualizar</button></div></div>';
+}
+
+function renderAdminFolgas() {
+return '<div class="admin-section"><h3>📅 Escala de Folga</h3><div class="input-group"><select id="selectFolgaColab"></select><input type="date" id="inputFolgaData"><button class="btn-sm" onclick="addFolgaAdmin(document.getElementById(\'selectFolgaColab\').value)">Adicionar</button></div><ul id="listaFolgasAdmin"></ul></div>';
+}
+
+function renderAdminAtividades() {
+return '<div class="admin-section"><h3>📋 Gerenciar Atividades</h3><div class="input-group"><input type="text" id="inputNovaAtiv" placeholder="Nova atividade"><button class="btn-sm" onclick="addAtividade()">Adicionar</button></div><ul id="listaAtividadesAdmin"></ul></div>';
+}
+
+function renderAdminAvisos() {
+return '<div class="admin-section"><h3>📢 Enviar Avisos</h3><div class="form-group"><label>Mensagem</label><textarea id="inputAvisoMsg" placeholder="Digite a mensagem..."></textarea></div><div class="input-group"><button class="btn-sm" onclick="enviarAviso()">Enviar</button><button class="btn-sm btn-warning" onclick="showToast(\'Função agendar em breve\')">Agendar</button></div></div>';
+}
+
+function renderAdminHistorico() {
+return '<div class="admin-section"><h3>📜 Histórico de Notificações</h3><div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.85rem;" id="tabelaNotificacoes"><thead><tr style="background:#0a0a0a;color:#00ff41;"><th style="padding:8px;border:1px solid #2a2a4e;">Data</th><th style="padding:8px;border:1px solid #2a2a4e;">Tipo</th><th style="padding:8px;border:1px solid #2a2a4e;">Mensagem</th><th style="padding:8px;border:1px solid #2a2a4e;">Status</th></tr></thead><tbody id="tbodyNotificacoes"></tbody></table></div></div>';
+}
+
+function renderAdminEscalaEditavel() {
+return '<div class="admin-section" id="adminEscalaSection"><h3>📊 Escala (Editável)</h3><p style="color:#b2bec3;font-size:0.85rem;margin-bottom:12px;">Arraste os blocos para mover. Clique para editar/excluir. Clique em célula vazia para adicionar.</p><div id="adminEscalaContainer"></div></div>';
+}
+
+// ============================================================
+// CRUD OPERATIONS
+// ============================================================
+function addColaborador() {
+const nome = document.getElementById('inputNovoColab').value.trim();
+if (!nome) { showToast('Digite um nome', 'error'); return; }
+if (colabExiste(nome)) { showToast('Colaborador já existe', 'error'); return; }
+state.colaboradores.push(nome);
+if (!state.escala[nome]) state.escala[nome] = [];
+saveToFirestore();
+renderAllEscalas();
+document.getElementById('inputNovoColab').value = '';
+showToast('Colaborador adicionado!');
+}
+
+function removeColaborador(nome) {
+if (!confirm('Remover "' + nome + '" permanentemente?')) return;
+state.colaboradores = state.colaboradores.filter(c => c !== nome);
+delete state.escala[nome];
+delete state.bancoHoras[nome];
+delete state.ferias[nome];
+delete state.folgas[nome];
+saveToFirestore();
+showAdminContent('gerencial');
+showToast('Colaborador removido');
+}
+
+function addAtividade() {
+const nome = document.getElementById('inputNovaAtiv').value.trim();
+if (!nome) { showToast('Digite um nome', 'error'); return; }
+if (state.atividades.includes(nome)) { showToast('Atividade já existe', 'error'); return; }
+state.atividades.push(nome);
+state.atividadesCor[nome] = '#636e72';
+saveToFirestore();
+renderAllEscalas();
+document.getElementById('inputNovaAtiv').value = '';
+showToast('Atividade adicionada!');
+}
+
+function removeAtividade(nome) {
+if (!confirm('Remover atividade "' + nome + '"?')) return;
+state.atividades = state.atividades.filter(a => a !== nome);
+delete state.atividadesCor[nome];
+for (let colab in state.escala) {
+state.escala[colab] = state.escala[colab].filter(b => b.atividade !== nome);
+}
+saveToFirestore();
+renderAllEscalas();
+showToast('Atividade removida');
+}
+
+function updateBancoHoras(nome, saldo) {
+if (!colabExiste(nome)) { showToast('Selecione um colaborador', 'error'); return; }
+state.bancoHoras[nome] = parseFloat(saldo) || 0;
+saveToFirestore();
+showToast('Banco de horas atualizado!');
+}
+
+function updateFerias(nome, mes) {
+if (!colabExiste(nome)) { showToast('Selecione um colaborador', 'error'); return; }
+if (!mes) { showToast('Selecione um mês', 'error'); return; }
+state.ferias[nome] = mes;
+saveToFirestore();
+showToast('Intenção de férias atualizada!');
+}
+
+function addFolgaAdmin(nome) {
+if (!colabExiste(nome)) { showToast('Selecione um colaborador', 'error'); return; }
+let data;
+const input = document.getElementById('folgaDate_' + nome) || document.getElementById('inputFolgaData');
+if (input) data = input.value;
+if (!data) { showToast('Selecione uma data', 'error'); return; }
+if (!state.folgas[nome]) state.folgas[nome] = [];
+if (state.folgas[nome].includes(data)) { showToast('Folga já registrada', 'warning'); return; }
+state.folgas[nome].push(data);
+state.folgas[nome].sort();
+saveToFirestore();
+renderAllEscalas();
+showToast('Folga adicionada!');
+}
+
+function removeFolgaAdmin(nome, data) {
+if (!confirm('Remover folga de ' + nome + ' em ' + data + '?')) return;
+if (state.folgas[nome]) {
+state.folgas[nome] = state.folgas[nome].filter(d => d !== data);
+saveToFirestore();
+renderAllEscalas();
+showToast('Folga removida');
+}
+}
+
+function enviarAviso() {
+const msg = document.getElementById('inputAvisoMsg').value.trim();
+if (!msg) { showToast('Digite uma mensagem', 'error'); return; }
+const now = new Date().toLocaleString('pt-BR');
+state.notificacoes.push({ data: now, tipo: 'Aviso', msg: msg, status: 'Enviada' });
+saveToFirestore();
+document.getElementById('inputAvisoMsg').value = '';
+showToast('Aviso enviado!');
+renderAdminHistorico();
+}
+
+// ============================================================
+// HISTÓRICO NOTIFICAÇÕES
+// ============================================================
+function renderNotificacoesTable() {
+const tbody = document.getElementById('tbodyNotificacoes');
+if (!tbody) return;
+let html = '';
+const nots = state.notificacoes.slice().reverse();
+for (let n of nots) {
+html += '<tr><td style="padding:6px 8px;border:1px solid #2a2a4e;">' + n.data + '</td><td style="padding:6px 8px;border:1px solid #2a2a4e;">' + n.tipo + '</td><td style="padding:6px 8px;border:1px solid #2a2a4e;">' + n.msg + '</td><td style="padding:6px 8px;border:1px solid #2a2a4e;">' + n.status + '</td></tr>';
+}
+if (!html) html = '<tr><td colspan="4" style="padding:12px;text-align:center;color:#666;">Nenhuma notificação</td></tr>';
+tbody.innerHTML = html;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+
+// ============================================================
+// FIREBASE REAL-TIME (v8 compat)
+// ============================================================
+function getOrCreateSessionId() {
+  let id = sessionStorage.getItem('ubsSessionId');
+  if (!id) {
+    id = 'sessao_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    sessionStorage.setItem('ubsSessionId', id);
+  }
+  return id;
+}
+
+function listenFirestoreRealtime() {
+  if (!firebaseAvailable || !db) return;
+  
+  const sessionId = getOrCreateSessionId();
+  let unsubscribe = null;
+  let reconnectTimer = null;
+  
+  function attachListener() {
+    if (unsubscribe) {
+      try { unsubscribe(); } catch(e) {}
+    }
+    
+    try {
+      unsubscribe = db.collection('ubs_escala').doc('dados')
+        .onSnapshot({
+          next: (doc) => {
+            if (!doc.exists) return;
+            const data = doc.data();
+            if (data && data.state && data._sourceSession !== sessionId) {
+              const novoState = typeof data.state === 'string'
+                ? JSON.parse(data.state)
+                : data.state;
+              Object.assign(state, novoState);
+              renderAllEscalas();
+              showToast('🔄 Dados atualizados em tempo real!');
+            }
+          },
+          error: (error) => {
+            console.warn('onSnapshot falhou, reconectando em 5s:', error);
+            if (reconnectTimer) clearTimeout(reconnectTimer);
+            reconnectTimer = setTimeout(attachListener, 5000);
+          }
+        });
+    } catch(e) {
+      console.warn('Erro ao iniciar listener, reconectando em 10s:', e);
+      reconnectTimer = setTimeout(attachListener, 10000);
+    }
+  }
+  
+  // Inicia o listener
+  attachListener();
+  
+  // ===== POLLING FALLBACK PRA CELULAR =====
+  // A cada 30s verifica manualmente se tem dados novos no Firestore
+  // Isso resolve o problema de celulares que suspendem WebSockets!
+  setInterval(async () => {
+    if (!firebaseAvailable || !db) return;
+    try {
+      const doc = await db.collection('ubs_escala').doc('dados').get();
+      if (doc.exists) {
+        const data = doc.data();
+        if (data && data.state && data._sourceSession !== sessionId) {
+          const novoState = typeof data.state === 'string'
+            ? JSON.parse(data.state)
+            : data.state;
+          Object.assign(state, novoState);
+          renderAllEscalas();
+        }
+      }
+    } catch(e) {
+      // Polling falhou, tenta de novo no próximo ciclo
+    }
+  }, 30000);
+}
+
+
+async function saveToFirestore() {
+  if (firebaseAvailable && db) {
+    try {
+      const sessionId = getOrCreateSessionId();
+      await db.collection('ubs_escala').doc('dados').set({
+        state: JSON.stringify(state),
+        _sourceSession: sessionId,
+        _updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    } catch(e) {
+      console.warn('Erro ao salvar no Firebase:', e);
+    }
+  }
+  localStorage.setItem('ubsEscalaData', JSON.stringify(state));
+}
+async function init() {
+  await loadFromFirestore();
+  listenFirestoreRealtime();          // ← SEM parâmetros!
+  renderAllEscalas();
+  renderNotificacoesTable();
+  document.getElementById('splashScreen').classList.remove('hidden');
+// Escuta histórico
+const observer = new MutationObserver(() => {
+const tbody = document.getElementById('tbodyNotificacoes');
+if (tbody && tbody.children.length === 0) renderNotificacoesTable();
+});
+observer.observe(document.getElementById('adminContentArea'), { childList: true, subtree: true });
+}
+
+init();
+</script>
+</body>
+</html>
